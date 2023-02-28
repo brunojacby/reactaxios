@@ -33,6 +33,7 @@
     cursor: pointer;
     transition: 0.3s;   
     text-decoration: none; 
+    letter-spacing: 1px;  
 }
 
 .btn:hover {
