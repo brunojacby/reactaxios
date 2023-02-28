@@ -3,24 +3,29 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
 
-import { createBrowserRoute, RouterProvider, Route } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, Route } from 'react-router-dom'
 
-const router = createBrowserRoute([
+import Home from './routes/Home'
+import NewPost from './routes/NewPost'
+
+const router = createBrowserRouter([
   {
     element: <App />,
     children: [
       {
         path: "/",
+        element: <Home />,
       },
       {
         path: "/new",
-      }
+        element: <NewPost />,
+      },
     ]
   }
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router}/>
   </React.StrictMode>,
 )
