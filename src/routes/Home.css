@@ -14,7 +14,7 @@
 
 .post h2,
 .post p {
-    margin-bottom: 1rem;
+    margin-bottom: 1rem;    
 }
 
 .post h2::first-letter {

@@ -18,15 +18,24 @@ const NewPost = () => {
 
   const createPost = async (e) => {
     e.preventDefault();
-    setPosts([...posts, data])
+    setPosts([...posts, data]);
 
     await blogFetch.post("/posts", {
       body: data,
-    })      
-        
-    console.log(posts)
+    })    
+
+    
     //navigate("/")
   }
+
+  const postRemove = (index) => {
+    const newPosts = posts.filter((e, i) => i !== index)
+    setPosts(newPosts)
+  }
+
+  const postEdit = (index) => {(
+    console.log(index)
+  )}
 
 
   return (
@@ -60,6 +69,19 @@ const NewPost = () => {
         </div>
         <input type="submit" value="Criar Post" className='btn' />
       </form>
+      <div>
+        <br /><br />
+        {posts.map((post, index) => (                  
+          <div className="post" key={index}>
+            <h2>{post.title}</h2>
+            <div className='areaPost'>
+            <p>{post.body}</p>                
+            <button onClick={() => postEdit(index)} className='btn'>Editar</button>
+            <button onClick={() => postRemove(index)} className='btn'>Excluir</button>
+            </div>                 
+          </div>          
+        ))}
+      </div>
     </div>
   )
 }
