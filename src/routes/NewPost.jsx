@@ -9,20 +9,25 @@ import './NewPost.css'
 const NewPost = () => {
   const navigate = useNavigate()
 
-  const [title, setTitle] = useState()
-  const [body, setBody] = useState()
+  const [data, setData] = useState({title: '', body: '', userId: 1})
+  const [posts, setPosts] = useState([])
+
+  const changeData = (e) => {
+    setData({...data, [e.target.name]:e.target.value})
+  }
 
   const createPost = async (e) => {
     e.preventDefault();
+    setPosts([...posts, data])
 
-    const post = {title, body, userId: 1}
-    
     await blogFetch.post("/posts", {
-      body: post,
-    })
-
-    navigate("/")
+      body: data,
+    })      
+        
+    console.log(posts)
+    //navigate("/")
   }
+
 
   return (
     <div className='new-post'>
@@ -36,15 +41,22 @@ const NewPost = () => {
           id="title"
           placeholder='Digite o título'
           required
-          onChange={(e) => setTitle(e.target.value)}
+          value={data.title}
+          onChange={changeData}
           />
-        </div>
+          { (!data.title) && <p style={{color: 'yellow', fontWeight: '200', marginTop: '5px'}}>Campo obrigatório</p>}
+        </div>  
         <div className='form-control'>
           <label htmlFor="body">Conteúdo:</label>
-          <textarea name="body" id="body" placeholder='Digite o conteúdo' cols="30" rows="10"
-          onChange={(e) => setBody(e.target.value)}
+          <textarea 
+          name="body" 
+          id="body" 
+          value={data.body}
+          placeholder='Digite o conteúdo' cols="30" rows="10"
+          onChange={changeData}
           required
           ></textarea>
+          { (!data.body) && <p style={{color: 'yellow', fontWeight: '200', marginTop: '5px'}}>Campo obrigatório</p>}
         </div>
         <input type="submit" value="Criar Post" className='btn' />
       </form>
